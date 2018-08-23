@@ -22,6 +22,7 @@ You can install VirtualBox via this [link](https://www.virtualbox.org/wiki/Downl
  * Type `vagrant init ubuntu/trusty64` to tell Vagrant what kind of Linux VM you want to run
  * Run the virtual machine by running `vagrant up`and `vagrant ssh` to log in.
  * `cd` into your folder and load the databade by typing `python database_setup.py` into the shell
+ * Run `python populate_database.py` to add the genres to the catalog.
  * The catalog does not yet have any books in it, if you'd like to preload some books with a 
   dummy user then run `python populate_with_books.py`
  * Otherwise, run the catalog by typing `python catalog.py`. The catalog can be utilised by visiting
