@@ -31,7 +31,7 @@ You can install VirtualBox via this [link](https://www.virtualbox.org/wiki/Downl
  
 ## Resources
  
- * [link](https://www.python.org/dev/peps/pep-0257/)
- * [link](http://jinja.pocoo.org/docs/2.10/templates/)
- * [link](https://developers.google.com/identity/sign-in/web/server-side-flow)
- * [link](https://shapeshed.com/default-styles-for-css/)
+ * [PEP](https://www.python.org/dev/peps/pep-0257/)
+ * [Jinja Templates](http://jinja.pocoo.org/docs/2.10/templates/)
+ * [Google OAuth](https://developers.google.com/identity/sign-in/web/server-side-flow)
+ * [CSS Styles](https://shapeshed.com/default-styles-for-css/)
