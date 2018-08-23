@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}Delete {{deleteBook.title}}{% endblock %}
+
+{% block content %}
+
+<nav>
+	{% if login_session['username'] %}
+	<p class="nav-signin-signout right" onclick="signOut();">Sign Out</p>
+	<script>
+			function signOut() {
+				var auth2 = gapi.auth2.getAuthInstance();
+				auth2.signOut().then(function() {
+					console.log("User signed out.");
+				});
+				$.ajax({
+					type: 'GET',
+					url: '/gdisconnect',
+					contentType: 'application/octet-stream; charset=utf-8',
+					success: function(result) {
+							window.location.href = "/genres";
+						}
+				});
+			}
+	</script>
+	{% else %}
+	<a class="nav-signin-signout right" href="/login">Log In With Google</a>
+	{% endif %}
+
+	<ul class="list">
+		<li class="nav-link"><a class="list-link" href="/genres">Genres</a></li>
+		<li class="nav-link"><a class="list-link" href="{{url_for('getBooksInGenre', genre_id=genre.id)}}">{{genre.genre}} Books</a></li>
+	</ul>
+
+</nav>
+
+<h1 class="section-title">Delete "{{deleteBook.title}}"?</h1>
+
+<p>Are you sure you want to delete "{{deleteBook.title}}"?</p><br>
+
+<form action="{{url_for('deleteBook', genre_id=genre.id, book_id=deleteBook.id)}}" method="POST">
+	<input class="form-link" type="submit" value="Yes">
+	<a class="form-link" href="{{url_for('getBook', book_id=deleteBook.id, genre_id=genre.id)}}">No</a>
+</form>
+
+{% endblock %}
+
+{% block footer %}{% endblock %}

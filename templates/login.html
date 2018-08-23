@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<!-- Pre-requisites for google signin -->
+		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+		<script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
+		<!-- End pre-requisites for google signin -->
+		<link href="https://fonts.googleapis.com/css?family=Corben" rel="stylesheet">
+		<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+
+		<script>
+			function start() {
+				gapi.load('auth2', function() {
+					auth2 = gapi.auth2.init({
+						client_id: "1009051235292-dpph236edpgq8tu1i1ha639vej84t5fc.apps.googleusercontent.com"
+					});
+				});
+			}
+		</script>
+		
+	</head>
+	<body> 
+
+	<header class="clear">
+		<h1 class="header-title left">Library Catalog</h1>
+		<p class="header-title right">&#128366;</p>
+	</header>
+	
+		
+		<div id="wrapper">
+
+		<p id="signin-text">To use the library catalog, please sign in below with an existing Google account.</p>
+		<img id="signinButton" src="static/images/google_signin.png">
+		<script>
+			$('#signinButton').click(function() {
+				auth2.grantOfflineAccess().then(signInCallback);
+			});
+		</script>
+
+	<div id="result"></div>
+
+		<script>
+			function signInCallback(authResult) {
+				if (authResult['code']) {
+					//Hide the signin button once user is authorised
+					$('#signinButton').attr('style', 'display: none');
+					$('#signin-text').attr('style', 'display: none');
+					//send one time code to server
+					$.ajax({
+						type: 'POST',
+						url: '/gconnect',
+						headers: {
+					    	'X-Requested-With': 'XMLHttpRequest'
+					    },
+						contentType: 'application/octet-stream; charset=utf-8',
+						success: function(result) {
+							if (result) {
+								$('#result').html('Welcome!<br>Just a moment while we redirect you to the homepage.');
+								setTimeout(function() {
+									window.location.href = "/genres";
+								}, 3000);
+							}
+						},
+						processData: false,
+						data: authResult['code']
+					});
+				} else {
+					$('#result').html('Failed to make a server side call, check console and configuration');
+					console.log(authResult['error']);
+				}
+			}
+		</script>
+		</div>
+
+	</body>
+</html>

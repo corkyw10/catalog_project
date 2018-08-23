@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block title %}Genres{% endblock %}
+
+
+{% block content %}
+<nav>
+
+	{% if login_session['username'] %}
+	<p class="nav-signin-signout right" onclick="signOut();">Sign Out</p>
+	<script>
+			function signOut() {
+				var auth2 = gapi.auth2.getAuthInstance();
+				auth2.signOut().then(function() {
+					console.log("User signed out.");
+				});
+				$.ajax({
+					type: 'GET',
+					url: '/gdisconnect',
+					contentType: 'application/octet-stream; charset=utf-8',
+					success: function(result) {
+							window.location.href = "/genres";
+						}
+				});
+			}
+	</script>
+	{% else %}
+	<a class="nav-signin-signout right" href="/login">Log In With Google</a>
+	{% endif %}
+
+</nav>
+
+{% with messages = get_flashed_messages() %}
+	 {% if messages %}
+	 	{% for message in messages %}
+	 		<p class="flash">{{message}}</p>
+	 	{% endfor %}
+	  {% endif %}
+{% endwith %}
+
+<h1 class="section-title clear">Genres</h1>
+
+<ul class="list">
+{% for genre in genres %}
+	<li><a class="list-link" href="{{url_for('getBooksInGenre', genre_id=genre.id)}}">{{genre.genre}}</a></li>
+{% endfor %}
+</ul>
+
+{% endblock %}
+
+{% block footer %}{% endblock %}

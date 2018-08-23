@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}{{book.title}}{% endblock %}
+
+{% block content %}
+
+<nav>
+
+	{% if login_session['username'] %}
+	<p class="nav-signin-signout right" onclick="signOut();">Sign Out</p>
+	<script>
+			function signOut() {
+				var auth2 = gapi.auth2.getAuthInstance();
+				auth2.signOut().then(function() {
+					console.log("User signed out.");
+				});
+				$.ajax({
+					type: 'GET',
+					url: '/gdisconnect',
+					contentType: 'application/octet-stream; charset=utf-8',
+					success: function(result) {
+							window.location.href = "/genres";
+						}
+				});
+			}
+	</script>
+	{% else %}
+	<a class="nav-signin-signout right" href="/login">Log In With Google</a>
+	{% endif %}
+
+	<ul class="list">
+		<li class="nav-link"><a class="list-link" href="/genres">Genres</a></li>
+		<li class="nav-link"><a class="list-link" href="{{url_for('getBooksInGenre', genre_id=genre.id)}}">{{genre.genre}} Books</a></li>
+	</ul>
+	
+</nav>
+
+<h1 class="section-title">{{book.title}}</h1>
+
+<div class="about-book">
+
+	<div class="synopsis">
+		<p class="author">by {{book.author}}</p><br>
+		<p>{{book.synopsis}}</p><br>		
+		<p>Added by {{creator.name}}</p><br><br>
+	</div>
+
+</div>
+
+	<img class="cover-image" src="{{book.cover_image}}">
+
+{% endblock %}
+
+{% block footer %}{% endblock %}

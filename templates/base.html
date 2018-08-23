@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<!-- Pre-requisites for google signin -->
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+	<script src="https://apis.google.com/js/client:platform.js?onload=start" async defer></script>
+	<!-- End pre-requisites for google signin -->
+	<meta charset="UTF-8">
+	<link href="https://fonts.googleapis.com/css?family=Corben" rel="stylesheet">
+	<link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+	<script>
+		function start() {
+			gapi.load('auth2', function() {
+				auth2 = gapi.auth2.init({
+					client_id: "1009051235292-dpph236edpgq8tu1i1ha639vej84t5fc.apps.googleusercontent.com"
+				});
+			});
+		}
+
+	</script>
+	{% block head %}	
+	<title>{% block title %}{% endblock %}</title>
+	{% endblock %}
+</head>
+
+<body>
+
+	<header class="clear">
+		<h1 class="header-title left"><a class="header-link" href="/genres">Library Catalog<a></h1>
+		<h1 class="header-title right">&#128366;</h1>
+	</header>
+
+
+	<div id="wrapper">
+
+		<div id="content">{% block content %}{% endblock %}</div>
+	</div>
+
+	<div id="footer">{% block footer %}{% endblock %}</div>
+	
+</body>
+</html>
