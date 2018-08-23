@@ -28,3 +28,10 @@ You can install VirtualBox via this [link](https://www.virtualbox.org/wiki/Downl
  * Otherwise, run the catalog by typing `python catalog.py`. The catalog can be utilised by visiting
   http://localhost:8000/login or http://localhost:8000/genres
  * JSON data can be accessed for any book by adding "/JSON" to the url of the book information pages
+ 
+## Resources
+ 
+ * [link](https://www.python.org/dev/peps/pep-0257/)
+ * [link](http://jinja.pocoo.org/docs/2.10/templates/)
+ * [link](https://developers.google.com/identity/sign-in/web/server-side-flow)
+ * [link](https://shapeshed.com/default-styles-for-css/)
